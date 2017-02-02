@@ -1,0 +1,77 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Hello",
+        "description": "Say Hello",
+        "version": "1.0.0"
+    },
+    "host": "execute-api.us-east-1.amazonaws.com",
+    "schemes": [
+        "https"
+    ],
+    "basePath": "/",
+    "paths": {
+        "/hello": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Hello"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Hello"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The hello greeting"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Hello": {
+            "type": "object",
+            "properties": {
+                "greeting": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "Error": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "fields": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

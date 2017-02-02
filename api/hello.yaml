@@ -1,0 +1,70 @@
+# demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: Hello
+  description: Say Hello
+  version: "2.0.0"
+# the domain of the service
+host: execute-api.us-east-1.amazonaws.com
+# array of all schemes that your API supports
+schemes:
+  - https
+# will be prefixed to all paths
+basePath: /
+paths:
+  /hello:
+    get:
+      responses:
+        200:
+          description: List of greetings
+          schema:
+            $ref: '#/definitions/HelloList'
+          
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      consumes:
+        - application/json
+      produces:
+        - text/plain
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Hello'
+      tags:
+        - Hello
+      responses:
+        200:
+          description: The hello greeting
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  Hello:
+    type: object
+    properties:
+      greeting:
+        type: string
+      name:
+        type: string
+  HelloList:
+    title: greetings
+    type: array
+    items: 
+      $ref: '#/definitions/Hello'
+    
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
